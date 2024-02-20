@@ -9,11 +9,11 @@ namespace ApiBlog.Repositorio
     public class EntradaRepositorio : IEntradaRepositorio
     {
         private readonly ApplicationDbContext _context;
-        private readonly IMapper _mapper;
+        
         public EntradaRepositorio(ApplicationDbContext context, IMapper mapper)
         {
             _context = context; 
-            _mapper = mapper;
+           
         }
         public bool ActualizarEntrada(Entrada entrada)
         {
@@ -62,11 +62,12 @@ namespace ApiBlog.Repositorio
 
         public ICollection<Entrada> GetAllEntradas()
         {
-            return _context.Entradas.ToList();
+            return _context.Entradas.OrderBy(c => c.Id).ToList();
         }
 
         public Entrada GetEntradaById(int entradaId)
         {
+            //return _context.Entradas.FirstOrDefault(c => c.Id == entradaId);
             return _context.Entradas.FirstOrDefault(c => c.Id == entradaId);
             
         }
